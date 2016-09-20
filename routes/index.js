@@ -3,10 +3,27 @@ var router = express.Router();
 var query = require('../querys');
 var bcrypt = require('bcrypt');
 
+var passport = require('../passport')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+router.get('/login', function(req, res, next) {
+	if(req.user) {
+		res.redirect('/dashboard');
+	};
+
+	res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', {
+	successRedirect: '/dashboard',
+	failureRedirect: '/login',
+	failureFlash: "Incorrect username or password.",
+	successFlash: "Welcome!"
+}));
 
 router.get('/register', function(req, res, next) {
 	if(req.user) {

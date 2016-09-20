@@ -9,7 +9,7 @@ module.exports = {
 	getAllUsers: Users,
 	addUser: function(username, password_hash) {
 		return Users().insert({
-			username: username,
+			username: username.toLowerCase(),
 			password_hash: password_hash
 		})
 	},

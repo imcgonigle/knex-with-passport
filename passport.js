@@ -1,14 +1,14 @@
 var passport = require('passport');
-var local = require('passport-local').Strategy;
+var Local = require('passport-local').Strategy;
 var query = require('./querys');
 var bcrypt = require('bcrypt');
 
 passport.use(new Local(
 	function(username, password, done) {
-		query.findUserByName(username)
-		.then(function(data) {
+		query.findUserByName(username.toLowerCase())
+		.then(function(users) {
 
-			let user = data[0];
+			let user = users[0];
 
 			if(bcrypt.compareSync(password, user.password_hash)){
 
@@ -16,7 +16,7 @@ passport.use(new Local(
 
 			} else {
 
-				done(null, false, {message: 'Incorrect username or password!'});
+				done(null, false);
 
 			}
 		})
@@ -32,7 +32,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(username, done) {
-	users.find(username)
+	query.findUserByName(username)
 	.then(function(data){
 		let user = data[0];
 		done(null, user);
