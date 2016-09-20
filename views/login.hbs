@@ -3,3 +3,7 @@
 	<input type="password" name="password" placeholder="password">
 	<button type="submit" name="login-button">Log me in</button>
 </form>
+
+{{#if flash.error}}
+	<h1 style="color: red;">{{flash.error}}</h1>
+{{/if}}

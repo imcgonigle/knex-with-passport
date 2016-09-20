@@ -11,11 +11,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
+
 	if(req.user) {
 		res.redirect('/dashboard');
 	};
 
-	res.render('login');
+
+	res.render('login', {flash: req.flash()});
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -26,12 +28,14 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/register', function(req, res, next) {
+
 	if(req.user) {
 		res.redirect('/dashboard');
 	}
 
 	res.render('register');
 })
+
 
 router.post('/register', function(req, res, next) {
 	let password_hash = bcrypt.hashSync(req.body.password, 10);
@@ -45,4 +49,12 @@ router.post('/register', function(req, res, next) {
 	})
 })
 
+router.get('/dashboard', function(req, res, next) {
+	if(req.user){
+		res.render('dashboard', {user: req.user });
+	}
+
+
+
+})
 module.exports = router;
