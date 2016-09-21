@@ -18,8 +18,6 @@ router.get('/login', function(req, res, next) {
 		res.render('login', {flash: req.flash()});
 	}
 
-
-
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -52,12 +50,27 @@ router.post('/register', function(req, res, next) {
 })
 
 router.get('/dashboard', function(req, res, next) {
+
 	if(!req.user){
 		res.redirect('/login');
+	} else{
+		res.render('dashboard', {user: req.user, flash: req.flash()});
 	}
 
-	res.render('dashboard', {user: req.user, flash: req.flash()});
-
-
 })
+
+router.get('/logout', function(req, res, next) {
+	req.logout();
+	res.redirect('/');
+})
+
+router.get('/posts/new', function(req, res, next){
+	if(!req.user) {
+		res.redirect('/login');
+	}else {
+		res.render('posts/new');
+	}
+})
+
+
 module.exports = router;

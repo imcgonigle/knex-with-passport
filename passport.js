@@ -21,7 +21,7 @@ passport.use(new Local(
 			}
 		})
 		.catch(function(err) {
-			done(null, false, {message: 'Incorrect username of password!'});
+			done(null, false);
 		})
 
 	}

@@ -8,9 +8,7 @@ module.exports = {
       database: 'knex_with_passport'
     }
   },
-
-
-
+	
   production: {
     client: 'postgresql',
     connection: {
