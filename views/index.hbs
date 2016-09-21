@@ -1,2 +1,9 @@
-
-<a href="/register">Register new user</a>
+{{#each data}}
+	<div class="post-card">
+		<h1><a href="/post/{{this.id}}">{{this.title}}</a> </h1>
+		<p>
+			{{this.id}}
+			{{this.body}}
+		</p>
+	</div>
+{{/each}}

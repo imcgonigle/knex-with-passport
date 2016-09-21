@@ -1,9 +1,11 @@
+{{#if flash.error}}
+	<h1 style="color: red;">{{flash.error}}</h1>
+{{/if}}
+
 <form id="login-form" action="/login" method="post">
 	<input type="text" name="username" placeholder="username">
 	<input type="password" name="password" placeholder="password">
 	<button type="submit" name="login-button">Log me in</button>
 </form>
 
-{{#if flash.error}}
-	<h1 style="color: red;">{{flash.error}}</h1>
-{{/if}}
+<a href="/register">Register new user</a>
