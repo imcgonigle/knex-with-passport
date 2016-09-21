@@ -14,10 +14,12 @@ router.get('/login', function(req, res, next) {
 
 	if(req.user) {
 		res.redirect('/dashboard');
-	};
+	}else {
+		res.render('login', {flash: req.flash()});
+	}
 
 
-	res.render('login', {flash: req.flash()});
+
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -50,10 +52,11 @@ router.post('/register', function(req, res, next) {
 })
 
 router.get('/dashboard', function(req, res, next) {
-	if(req.user){
-		res.render('dashboard', {user: req.user });
+	if(!req.user){
+		res.redirect('/login');
 	}
 
+	res.render('dashboard', {user: req.user, flash: req.flash()});
 
 
 })
